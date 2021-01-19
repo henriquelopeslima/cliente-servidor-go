@@ -13,7 +13,7 @@ if [[ $# -ne 1 ]]; then
   exit
 fi
 
-WORKSPACE=/vagrant/trabalho1/.workspace
+WORKSPACE=/go/app/.workspace
 numCorrect=0
 TESTS_PER_IMPL=1 # LEMBRE-SE DE ATUALIZAR SE A QTD DE TESTES MUDAR!
 PORT=$1
@@ -21,8 +21,8 @@ SKIP_MESSAGE="Um ou ambos programas faltando. Pulando. \n\n"
 testNum=1
 
 # Localização dos arquivos
-SGC=/vagrant/trabalho1/cliente_servidor/cliente # cliente
-SGS=/vagrant/trabalho1/cliente_servidor/servidor # servidor
+SGC=/go/app/cliente_servidor/cliente # cliente
+SGS=/go/app/cliente_servidor/servidor # servidor
 
 # função para comparar os arquivos de mensagem
 # $1 = primeiro arquivo, $2 = segundo arquivo, $3 = imprime separador (não se 0, sim caso contrário),

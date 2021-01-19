@@ -1,18 +1,17 @@
 /*****************************************************************************
- * cliente.go                                                                 
- * Nome:
- * Matrícula:
+ * cliente.go
+ * Nome: Henrique Lopes Lima
+ * Matrícula: 413031
  *****************************************************************************/
 
 package main
 
 import (
-  "bufio"
   "fmt"
+  "io/ioutil"
   "log"
   "net"
   "os"
-  "strings"
 )
 
 const SendBufferSize = 2048
@@ -29,8 +28,8 @@ func client(serverIp string, serverPort string) {
   conn, err := net.DialTCP("tcp", nil, tcpAddr)
   checkErrorClient(err)
 
-  message := readInput()
-  _, err = conn.Write([]byte(message))
+  bytes, _ := ioutil.ReadAll(os.Stdin)
+  _, err = conn.Write(bytes)
   checkErrorClient(err)
 
   os.Exit(0)
@@ -44,21 +43,6 @@ func main() {
   serverIp := os.Args[1]
   serverPort := os.Args[2]
   client(serverIp, serverPort)
-}
-func readInput() string {
-  texts := make([]string, 0)
-  scanner := bufio.NewScanner(os.Stdin)
-  for {
-    scanner.Scan()
-    text := scanner.Text()
-    if len(text) != 0 {
-      texts = append(texts, text)
-    } else {
-      break
-    }
-  }
-  stringText := strings.Join(texts[:], "\n")
-  return stringText
 }
 
 func checkErrorClient(err error){

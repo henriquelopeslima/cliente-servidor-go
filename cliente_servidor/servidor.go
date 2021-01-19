@@ -1,7 +1,7 @@
 /*****************************************************************************
  * servidor.go                                                                 
- * Nome:
- * Matrícula:
+ * Nome: Henrique Lopes Lima
+ * Matrícula: 413031
  *****************************************************************************/
 
 package main
@@ -20,24 +20,39 @@ const RecvBufferSize = 2048
  * Imprima a mensagem recebida em stdout
 */
 func server(serverPort string) {
+
   tcpAddr, err := net.ResolveTCPAddr("tcp", serverPort)
   checkErrorServer(err)
 
   listener, err := net.ListenTCP("tcp", tcpAddr)
   checkErrorServer(err)
 
+  defer listener.Close()
+
   for {
     conn, err := listener.Accept()
-    fmt.Println("Conectado")
 
     if err != nil {
       continue
     }
 
-    go handleClient(conn)
+    handleClient(conn)
   }
 }
 
+func handleClient(conn net.Conn)  {
+  var buf [RecvBufferSize]byte
+
+  for {
+    n, err := conn.Read(buf[0:])
+    if err != nil {
+      return
+    }
+    if buf[0:] != nil {
+      fmt.Print(string(buf[0:n]))
+    }
+  }
+}
 
 // Main obtém argumentos da linha de comando e chama a função servidor
 func main() {
@@ -52,26 +67,5 @@ func checkErrorServer(err error){
   if err != nil {
     _, _ = fmt.Fprintf(os.Stderr, "Erro: %s\n", err.Error())
     os.Exit(1)
-  }
-}
-
-func handleClient(conn net.Conn)  {
-  defer conn.Close()
-
-  var buf [RecvBufferSize]byte
-
-  for {
-    n, err := conn.Read(buf[0:])
-    if err != nil {
-      return
-    }
-
-    fmt.Println(string(buf[0:]))
-
-    _, err2 := conn.Write(buf[0:n])
-
-    if err2 != nil {
-      return
-    }
   }
 }

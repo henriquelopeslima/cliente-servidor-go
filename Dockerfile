@@ -1,8 +1,9 @@
 FROM golang:1.14-alpine
 
 RUN apk add --no-cache bash \
-    bash-doc \
     bash-completion \
+    bash-doc \
+    coreutils \
     git \
     make
 
