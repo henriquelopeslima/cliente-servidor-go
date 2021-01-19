@@ -1,3 +1,18 @@
+# Resposta
+Para solucionar esse problema foi utilizado um container com Docker, ao invés da máquina virtual comum que foi recomendada.
+
+## Como usar o Docker
+Dentro da pasta principal crie a imagem
+- docker build -t golang-alpine-bash .
+
+Crie o container
+- docker run -it -v $(pwd):/go/app --name trabalho1 golang-alpine-bash
+
+Execute o container de forma iterativa
+- docker exec -it trabalho1 bash
+
+
+
 # Trabalho 1: Máquina virtual e programação com sockets
 
 ## Prefácio
