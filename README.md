@@ -1,15 +1,16 @@
 # Resposta
-Para solucionar esse problema foi utilizado um container com Docker, ao invés da máquina virtual comum que foi recomendada.
+Para solucionar esse problema foi utilizado um container com Docker, ao invés da máquina virtual comum recomendada para o trabalho.
 
-## Como usar o Docker
-Dentro da pasta principal crie a imagem
-- docker build -t golang-alpine-bash .
-
-Crie o container
-- docker run -it -v $(pwd):/go/app --name trabalho1 golang-alpine-bash
+## Como executar a solução usando o Docker
+Dentro da pasta principal
+- docker-compose up.
 
 Execute o container de forma iterativa
-- docker exec -it trabalho1 bash
+- docker exec -it [nome do container gerado] bash.
+
+Depois bastar seguir os passos indicados na descrição do trabalho:
+- gere os binários (make);
+- execute os testes passando uma porta possível (./testa_cliente_servidor.sh :50000).
 
 
 
@@ -77,7 +78,7 @@ Use as opções padrão e desmarque "Launch Xming" no final.
 
 ### Passo 5: Clone o repositório de trabalhos Git
 
-Abra seu terminal (use aquele mencionado no passo 3 se estiver usando Windows) e `cd` para onde você quiser manter os arquivos deste curso em seu computador.  
+Abra seu terminal (use aquele mencionado no passo 3 se estiver usando Windows) e `cd` para onde você quiser manter os arquivos deste curso em seu computador.
 
 Execute `git clone https://github.com/filipemr/rus0082` para baixar os arquivos do curso no GitHub.
 
@@ -86,6 +87,8 @@ Execute `git clone https://github.com/filipemr/rus0082` para baixar os arquivos 
 ### Passo 6: Provisionando a máquina virtual usando vagrant
 
 No diretório `rus0082` que você acabou de criar, execute o comando `vagrant up` para iniciar a máquina virtual e provisioná-la de acordo com o Vagrantfile. Você provavelmente terá que esperar alguns minutos. Você pode ver avisos/erros em vermelho, como "default: stdin: is not a tty", mas você não deve se preocupar com eles.
+
+Caso, após o comando `vagrant up`, não apareça `vagrant@rus0082:/vagrant$`, é porque a máquina está ligada mas você não está logado a ela. Para isso, execute `vagrant ssh` e você se logará ao terminal da máquina virtual.
 
 **Observação 1**: os comandos a seguir permitirão que você interrompa a VM a qualquer momento (por exemplo, quando terminar de trabalhar em uma tarefa do dia):
 * `vagrant suspend` salvará o estado da VM e a parará.
@@ -108,7 +111,7 @@ Esta parte do trabalho lhe dará experiência com a programação básica de soc
 
 Os programas cliente e servidor devem atender às seguintes especificações. Certifique-se de lê-los meticulosamente antes e depois da programação para garantir que sua implementação os cumpra:
 
-### Especificação servidor 
+### Especificação servidor
 * Cada programa servidor deve escutar em um socket, esperar que um cliente se conecte, receber uma mensagem do cliente, imprimir a mensagem na saída padrão e então esperar pelo próximo cliente indefinidamente.
 * Cada servidor deve ter um argumento de linha de comando: o número da porta para escutar as conexões do cliente.
 * Cada servidor deve aceitar e processar as comunicações do cliente em um loop infinito, permitindo que vários clientes enviem mensagens para o mesmo servidor. O servidor só deve sair em resposta a um sinal externo (por exemplo, SIGINT ao pressionar `ctrl-c`).
@@ -181,7 +184,7 @@ Aqui estão algumas dicas de debug. Se você ainda estiver tendo problemas, faç
       [estes](https://techtalk.gfi.com/scan-open-ports-in-windows-a-quick-guide/) para Windows e
       [estes](https://wiki.archlinux.org/index.php/Nmap#Port_scan) para Linux (pode ser necessário instalar o `nmap`). Use 127.0.0.1 como o IP e 8888-8888 como o intervalo de porta em sua varredura de porta.
 
-  Se isso não ajudou a resolver o problema, pesquisa mais no google, pergunte a um colega ou ao professor. 
+  Se isso não ajudou a resolver o problema, pesquisa mais no google, pergunte a um colega ou ao professor.
 
 * **Preciso lidar com sinais como SIGINT para limpar o processo do servidor quando o usuário pressiona `ctrl-c`?** Não, não é necessário neste trabalho. A resposta padrão aos sinais é boa o suficiente.
 * **Devo usar sockets de fluxo (TCP) ou datagrama (UDP)?** Por favor, use sockets de fluxo, para garantir que a mensagem exata seja entregue. Os pacotes de datagrama não têm garantia de entrega.
