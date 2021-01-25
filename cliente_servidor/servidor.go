@@ -1,7 +1,7 @@
 /*****************************************************************************
  * servidor.go                                                                 
- * Nome: Henrique Lopes Lima
- * Matrícula: 413031
+ * Nome: Henrique Lopes Lima, Gabriela Miranda Leal
+ * Matrícula: 413031, 398624
  *****************************************************************************/
 
 package main
@@ -42,7 +42,6 @@ func server(serverPort string) {
 
 func handleClient(conn net.Conn)  {
   var buf [RecvBufferSize]byte
-
   for {
     n, err := conn.Read(buf[0:])
     if err != nil {

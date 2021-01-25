@@ -1,14 +1,15 @@
 /*****************************************************************************
  * cliente.go
- * Nome: Henrique Lopes Lima
- * Matrícula: 413031
+ * Nome: Henrique Lopes Lima, Gabriela Miranda Leal
+ * Matrícula: 413031, 398624
  *****************************************************************************/
 
 package main
 
 import (
+  "bufio"
   "fmt"
-  "io/ioutil"
+  "io"
   "log"
   "net"
   "os"
@@ -27,11 +28,22 @@ func client(serverIp string, serverPort string) {
   //TCPConn
   conn, err := net.DialTCP("tcp", nil, tcpAddr)
   checkErrorClient(err)
+  reader := bufio.NewReader(os.Stdin)
+  buf := make([]byte, SendBufferSize)
 
-  bytes, _ := ioutil.ReadAll(os.Stdin)
-  _, err = conn.Write(bytes)
+  for {
+    readTotal, err := reader.Read(buf)
+    if err != nil {
+      if err != io.EOF {
+        checkErrorClient(err)
+      }
+      break
+    }
+    _, err = conn.Write(buf[:readTotal])
+    checkErrorClient(err)
+  }
+
   checkErrorClient(err)
-
   os.Exit(0)
 }
 
